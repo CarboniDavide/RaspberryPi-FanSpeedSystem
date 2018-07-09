@@ -22,7 +22,7 @@ After editing the file you must put the fan-control.sh in the folder:
 
 After change permission in the file with:
 
-    # chmod +x /etc/init.d/fan-control.sh
+    # chmod u+x /etc/init.d/fan-control.sh
 
 Go to the folder:
 
@@ -38,7 +38,7 @@ and
     
 Now you must change the permissions in "fanGo.py" and "init.py" file using
 
-    # chmod u+x fanGo,py
+    # chmod u+x fanGo.py
     
 and
 
