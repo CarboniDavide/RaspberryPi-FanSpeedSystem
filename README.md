@@ -57,4 +57,4 @@ To manage the service you can use:
     service fan-control reload
     service fan-control force-reload
 
-The init.py file is a small program that is used only by the service when it is started. It used to initialize the GPIO ports.
+The init.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
