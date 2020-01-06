@@ -28,10 +28,10 @@ import RPi.GPIO as GPIO
 
 #temperatures levels
 
-TEMP_LV_1 = 50  
-TEMP_LV_2 = 55
-TEMP_LV_3 = 57
-TEMP_LV_4 = 60
+TEMP_LV_1 = 55
+TEMP_LV_2 = 60
+TEMP_LV_3 = 62
+TEMP_LV_4 = 65
 
 #Controls flags
 
@@ -56,6 +56,21 @@ def setup():
 	GPIO.setwarnings(False)
 	return()
 
+def clean():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
+	GPIO.setup(5, GPIO.OUT)
+	GPIO.setup(6, GPIO.OUT)
+	GPIO.setup(13, GPIO.OUT)
+	GPIO.setup(19, GPIO.OUT)
+	GPIO.cleanup()
+	return()
+
+def init():
+	clean()
+	setup()
+	return()
+
 def getCPUtemperature():
         res = os.popen('vcgencmd measure_temp').readline()
         temp =(res.replace("temp=","").replace("'C\n",""))
@@ -71,7 +86,7 @@ def Switch_OFF(n_fun):
         return False
 
 def fanON(n_fun):
-	
+
 	global Fan1ON
 	global Fan2ON
 	global Fan3ON
@@ -82,17 +97,17 @@ def fanON(n_fun):
 
 	if n_fun == 2 and Fan2ON == False:
                 Fan2ON = Switch_ON(Fan2)
-	
+
 	if n_fun == 3 and Fan3ON == False:
                 Fan3ON = Switch_ON(Fan3)
-	
+
 	if n_fun == 4 and Fan4ON == False:
                 Fan4ON = Switch_ON(Fan4)
 
         return()
 
 def fanOFF(n_fun):
-	
+
 	global Fan1ON
         global Fan2ON
         global Fan3ON
@@ -114,7 +129,7 @@ def fanOFF(n_fun):
 
 def ControlFan():
         CPU_temp = float(getCPUtemperature())
-        
+
 	if CPU_temp > TEMP_LV_1:
 		fanON(1)
         else:
@@ -138,7 +153,7 @@ def ControlFan():
         sleep(TimeSleep)
         return()
 
-setup()
+init()
 
 try:
 	while True:
