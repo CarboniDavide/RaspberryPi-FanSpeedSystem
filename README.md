@@ -1,5 +1,5 @@
 # Raspberry Variable Fan Speed Install Procedure
-The fanGo.py file is the program written in python for fan management. To be able to use it, make sure you have a python interpreter installed on your system.
+The fanSystem.py file is the program written in python for fan management. To be able to use it, make sure you have a python interpreter installed on your system.
 
 If necessary, you can install the python interpreter using:   
 
@@ -53,6 +53,10 @@ After restart your system and verify if the fan-control service is running corre
 
     # service fanSystem status.
 
+> The gpoClean.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
+
+## Manage service
+
 To manage the service you can use: 
 
     service fanSystem start
@@ -61,5 +65,3 @@ To manage the service you can use:
     service fanSystem status
     service fanSystem reload
     service fanSystem force-reload
-
-The gpoClean.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
