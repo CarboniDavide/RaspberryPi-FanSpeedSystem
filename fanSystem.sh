@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          fan-control
+# Provides:          fanSystem
 # Required-Start:    $local_fs $remote_fs $network $syslog $named
 # Required-Stop:     $local_fs $remote_fs $network $syslog $named
 # Default-Start:     2 3 4 5
@@ -12,11 +12,11 @@
 
 # Main folder for the scripts init.py and fanGO.py
 # example /var/scripts/fan
-DIR= ----->YOUR FOLDER HERE<-----
+DIR=
 
-DAEMON=$DIR/fanGO.py
-INIT=$DIR/init.py
-DAEMON_NAME=fan-control
+DAEMON=$DIR/fanSystem.py
+CLEAN=$DIR/gpoClean.py
+DAEMON_NAME=fanSystem
 
 # Add any command line options for your daemon here
 DAEMON_OPTS=""
@@ -30,11 +30,7 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 
 . /lib/lsb/init-functions
 
-do_init () {
-    python $INIT
-}
 do_start () {
-    do_init
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
     start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
     log_end_msg $?
@@ -42,7 +38,7 @@ do_start () {
 do_stop () {
     log_daemon_msg "Stopping system $DAEMON_NAME daemon"
     start-stop-daemon --stop --pidfile $PIDFILE --retry 10
-    do_init
+    python $CLEAN
     log_end_msg $?
 }
 
