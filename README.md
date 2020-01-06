@@ -1,5 +1,15 @@
 # Raspberry Variable Fan Speed Install Procedure
 
+## Using install file
+
+To install automatically all required files and services run inside **fan folder** (as root):
+
+    # bash fanInstall.sh
+
+> a restart is required
+
+## Manually
+
 The fanGo.py file is the program written in python for fan management. To be able to use it, make sure you have a python interpreter installed on your system.
 
 For example, you can install the python interpreter using:   
@@ -22,7 +32,7 @@ After editing the file you must put the fan-control.sh in the folder:
 
 After change permission in the file with:
 
-    # chmod u+x /etc/init.d/fan-control.sh
+    # chmod u+x /etc/init.d/fanSystem.sh
 
 Go to the folder:
 
@@ -30,31 +40,31 @@ Go to the folder:
 
 After you must enable the service with:
           
-    # systemctl enable fan-control.sh
+    # systemctl enable fanSystem.sh
 
 and
 
-    # update-rc.d fan-control.sh defaults
+    # update-rc.d fanSystem.sh defaults
     
 Now you must change the permissions in "fanGo.py" and "init.py" file using
 
-    # chmod u+x fanGo.py
+    # chmod u+x fanSystem.py
     
 and
 
-    # chmod u+x init.py
+    # chmod u+x gpoClean.py
 
 After restart your system and verify if the fan-control service is running correctly using the command: 
 
-    # service fan-control status.
+    # service fanSystem status.
 
 To manage the service you can use: 
 
-    service fan-control start
-    service fan-control stop
-    service fan-control restart
-    service fan-control status
-    service fan-control reload
-    service fan-control force-reload
+    service fanSystem start
+    service fanSystem stop
+    service fanSystem restart
+    service fanSystem status
+    service fanSystem reload
+    service fanSystem force-reload
 
-The init.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
+The gpoClean.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
