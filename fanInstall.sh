@@ -9,5 +9,6 @@ chmod u+x fanSystem.py
 chmod u+x gpoClean.py
 
 # enable fanSystem service
-systemctl enable fan-control.sh
-update-rc.d fan-control.sh defaults
+cd /etc/init.d
+systemctl enable fanSystem.sh
+update-rc.d fanSystem.sh defaults
