@@ -2,7 +2,7 @@
 import os
 import time
 import sys
-from fanGO import TEMP_LV_1, TEMP_LV_2, TEMP_LV_3, TEMP_LV_4
+from fanSystem import TEMP_LV_1, TEMP_LV_2, TEMP_LV_3, TEMP_LV_4
 
 fan1On = False
 fan2On = False
