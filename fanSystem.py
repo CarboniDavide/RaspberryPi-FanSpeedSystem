@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# fanGO v.1
+# fanSystem v.1
 # Carboni Corporation 2017- All right reserved https://www.carboni.ch
 # Author: Carboni Davide
 # @copyright Copyright (c) 2017, Carboni Software, Inc.
