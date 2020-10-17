@@ -6,54 +6,64 @@ If necessary, you can install the python interpreter using:
     # apt-get install build-essential
 
 ## Using install file
-
-To install automatically all required files and services run inside **fan folder** (as root):
+To install automatically all required files and services run inside your project folder (as root):
 
     # bash fanInstall.sh
 
-> a restart is required
+then verify service using:
+
+    # systemctl status fanSystem
+
+or 
+
+    # service fanSystem status
 
 ## Manually
 
-To start fanSystem.py automatically when the raspberry start, you need to use a linux service using **fanSystem.sh**.
-The only thing to do, you have to edit the fanSystem.sh at line 15 before using it. In the line 15 you must specify in which folder the fanSystem.py and gpoClean.py files are located. 
-So in line 15 you must insert your folder as:
+### Step 1: Provide file informations and Copy
+To start fanSystem.py automatically when the raspberry start, you need to use a linux service using **fanSystem** shell script file.
+The only thing to do, you have to edit the **fanSystem** file at line 14 before using it. In the line 14 you must specify in which folder fanSystem.py and gpoClean.py files are located. 
+So in line 14 you must insert your project folder as:
 
     DIR=YOUR FOLDER HERE
 
-After editing the file you must put the **fanSystem.sh** in the folder: 
+After then, **copy fanSystem** shell script file into **/etc/init.d** folder.
 
-    /etc/init.d
+### Step 2: Permissions
+Now in your project folder you must change permissions in **fanSystem.py** and **gpoClean.py** file using:
+    
+    # chmod u+x fanSystem.py
+    # chmod u+x gpoClean.py
 
-After change permission in the file with:
+The same for **fanSystem** bash file into **init.d** folder:
 
-    # chmod u+x /etc/init.d/fanSystem.sh
+    # chmod u+x /etc/init.d/fanSystem
 
-Go to the folder:
+### Step 3: Enable and Link
+Go into **init.d** folder:
 
     # cd /etc/init.d 
 
-After you must enable the service with:
+After then, you have to enable fanSystem service with:
           
-    # systemctl enable fanSystem.sh
+    # systemctl enable fanSystem
 
-and
+and link it to load fanSystem service on system start:
 
-    # update-rc.d fanSystem.sh defaults
+    # update-rc.d fanSystem defaults
     
-Now you must change the permissions in **fanSystem.py** and **gpoClean.py** file using
+### Step 4: Start and Check
+Now start **fanSystem** service using:
 
-    # chmod u+x fanSystem.py
-    
-and
+    # service fanSystem start
 
-    # chmod u+x gpoClean.py
-
-After restart your system and verify if the fan-control service is running correctly using the command: 
+and check using:
 
     # service fanSystem status.
 
-> The gpoClean.py file is a small program that is used only to clear all GPIO pins when the service start or is reloaded.
+> The gpoClean.py file is a small program used only to clear all GPIO pins when the service start or restart.
+
+> Try to restart system if service doesn't work after installation.
 
 ## Manage service
 

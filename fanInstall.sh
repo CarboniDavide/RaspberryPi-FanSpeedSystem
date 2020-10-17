@@ -5,14 +5,17 @@
 # Install fan system controll for Raspberry Pi
 
 # set current directory in fanSystem and copy file in /etc/init.
-sed "s|DIR=|DIR=$PWD|" fanSystem.sh > /etc/init.d/fanSystem.sh
+sed "s|DIR=|DIR=$PWD|" fanSystem > /etc/init.d/fanSystem
 
 # change folder's rights
-chmod u+x /etc/init.d/fanSystem.sh
+chmod u+x /etc/init.d/fanSystem
 chmod u+x fanSystem.py
 chmod u+x gpoClean.py
 
-# enable fanSystem service
+# enable and register fanSystem service
 cd /etc/init.d
-systemctl enable fanSystem.sh
-update-rc.d fanSystem.sh defaults
+systemctl enable fanSystem
+update-rc.d fanSystem defaults
+
+# start fanSystem service
+systemctl start fanSystem
