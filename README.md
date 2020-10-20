@@ -7,8 +7,6 @@ Actually this project has been tested and is available for:
 
 - Raspberry Pi 4
 - Raspberry Pi 3
-- Raspberry Pi 3 B+
-
 
 ## Required
 
