@@ -7,7 +7,7 @@
 import time
 import fanUtils, fanConfig
 
-LOOP_SLEEP_TIME = 1
+LOOP_SLEEP_TIME = 3
 gpio_fan_states = { x['gpio_name'] : 0 for x in fanConfig.GPIO_FAN_SETTINGS }
  
 # prevent decorator: change gpio state when state change, do nothing elsewhere
