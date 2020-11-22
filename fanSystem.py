@@ -4,51 +4,43 @@
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Fan speed software control for Raspberry Pi
 
-import os, time
-import RPi.GPIO as GPIO
-from fanConfig import *
+import time
+import fanUtils, fanConfig
 
-LOOP_SLEEP_TIME = 5
-fan_states= [0 ,0, 0, 0]
+LOOP_SLEEP_TIME = 1
+gpio_fan_states = [ { 'gpio_name': x['gpio_name'], 'temp_level': x['temp_level'], 'state' : 0 } for x in fanConfig.GPIO_FAN_SETTINGS ]
+ 
+# prevent decorator: change gpio state when state change, do nothing elsewhere
+def prevent(func):
+    def function_wrapper(*args, **kwargs):
+        current_fan_config = next(gpio_fan_state for gpio_fan_state in gpio_fan_states if gpio_fan_state["gpio_name"] == args[0])
+        nex_state = args[1]
+        
+        if nex_state != current_fan_config['state']:
+            current_fan_config['state'] = nex_state
+            func(*args, **kwargs)
+            
+    return function_wrapper
 
-def gpio_setup():
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setwarnings(False)
-
-def gpio_clean():
-	for fan_gpio_pin in FAN_GPIO_PINS:
-		GPIO.setup(fan_gpio_pin, GPIO.OUT)
-		GPIO.cleanup(fan_gpio_pin)
-
-def get_cpu_temperature():
-	res = os.popen('vcgencmd measure_temp').readline()
-	temp = (res.replace("temp=","").replace("'C\n",""))
-	return float(temp)
-
-def gpio_on(gpio_number):
-	GPIO.setup(gpio_number, GPIO.OUT)
-	GPIO.output(gpio_number, 1)
-
-def gpio_off(gpio_number):
-	GPIO.cleanup(gpio_number)
-
-def fan_change_state(fan_level, fan_state):
-	global fan_states
-
-	if fan_states[fan_level] != fan_state:
-		fan_states[fan_level] = fan_state
-		gpio_on(FAN_GPIO_PINS[fan_level]) if fan_state == 1 else gpio_off(FAN_GPIO_PINS[fan_level])
+# remove decorator if you don't want to have prevent configuration
+@prevent
+def gpio_set_state(gpio_number, state):
+    fanUtils.gpio_on(gpio_number) if state == 1 else fanUtils.gpio_off(gpio_number)
 
 def main():
-	for fan_level, fan_temperature in enumerate(TEMPERATURE_LEVELS, start = 0):
-		fan_change_state(fan_level, 1 if get_cpu_temperature() > fan_temperature else 0)
+    try:
+        while True:
+            cpu_temp = fanUtils.get_cpu_temperature()
+            for gpio_fan_state in gpio_fan_states:
+                gpio_set_state(gpio_fan_state['gpio_name'], 1 if cpu_temp > gpio_fan_state['temp_level'] else 0)
+            
+            time.sleep(LOOP_SLEEP_TIME) 
+    except:
+        fanUtils.gpio_clean()
+    
 
-gpio_setup()
-gpio_clean()
+# Entry Point -------
+fanUtils.gpio_setup()
+fanUtils.gpio_clean()
+main()
 
-try:
-	while True:
-		main()
-		time.sleep(LOOP_SLEEP_TIME)
-except:
-	gpio_clean()

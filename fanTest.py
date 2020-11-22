@@ -6,51 +6,27 @@
 
 import os
 from time import sleep
-import signal
-import sys
-import RPi.GPIO as GPIO
-from fanConfig import *
+import fanUtils, fanConfig
 
-def gpio_setup():
-        GPIO.setmode(GPIO.BCM)
-	GPIO.setwarnings(False)
-	return()
+SLEEP_TIME = 1
 
-def gpio_clean():
-    for fan_gpio_pin in FAN_GPIO_PINS:
-        GPIO.setup(fan_gpio_pin, GPIO.OUT)
-        GPIO.cleanup(fan_gpio_pin)
-    return()
+fanUtils.gpio_setup()
+fanUtils.gpio_clean()
 
-def increase():
+try:
         print("----------------------")
         print("STEP 1: FAN INCREASING")
         print("----------------------")
-
-        for fan_level, gpio_pin in enumerate(FAN_GPIO_PINS, start= 1):
-                print("Level %s is ON" % fan_level)
-                GPIO.setup(gpio_pin, GPIO.OUT)
-	        GPIO.output(gpio_pin, 1)
-                sleep(3)
-
-	return()
-
-def decrease():
+        for gpio_fan_setting in fanConfig.GPIO_FAN_SETTINGS:
+                print("GPIP %s is ON" % gpio_fan_setting['gpio_name'])
+                fanUtils.gpio_on(gpio_fan_setting['gpio_name'])
+                sleep(SLEEP_TIME)
         print("----------------------")
         print("STEP 2: FAN DECREASING")
         print("----------------------")
-        for fan_level, gpio_pin in enumerate(FAN_GPIO_PINS, start= 1):
-                print("Level %s is OFF" % fan_level)
-                GPIO.cleanup(gpio_pin)
-                sleep(3)
-
-	return()
-
-gpio_setup()
-gpio_clean()
-
-try:
-        increase()
-        decrease()
+        for gpio_fan_setting in fanConfig.GPIO_FAN_SETTINGS:
+                print("GPIP %s is OFF" % gpio_fan_setting['gpio_name'])
+                fanUtils.gpio_off(gpio_fan_setting['gpio_name'])
+                sleep(SLEEP_TIME)
 except:
 	gpio_clean()
