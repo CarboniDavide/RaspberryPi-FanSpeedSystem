@@ -29,4 +29,4 @@ try:
                 fanUtils.gpio_off(gpio_fan_setting['gpio_name'])
                 sleep(SLEEP_TIME)
 except:
-	gpio_clean()
+	fanUtils.gpio_clean()
