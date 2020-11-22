@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# fanInstall v.1
+# fanInstall v.2
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Install fan system controll for Raspberry Pi
 

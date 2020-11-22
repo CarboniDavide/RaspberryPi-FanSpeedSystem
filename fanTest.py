@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# fanTest v.1
+# fanTest v.2
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Fan speed test software for Raspberry Pi
 

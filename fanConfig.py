@@ -1,4 +1,4 @@
-# fanConfig v.1
+# fanConfig v.2
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 #
 # Main project configuration file

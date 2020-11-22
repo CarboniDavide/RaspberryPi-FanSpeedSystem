@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# fanSystem v.1
+# fanSystem v.2
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Fan speed software control for Raspberry Pi
 

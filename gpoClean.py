@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# gpoClean v.1
+# gpoClean v.2
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Clean all used gpio pins in fanSystem control software
 
