@@ -11,7 +11,7 @@
 #       'temp_level' : 58
 #  },
 #
-# In this base configuration four gpio's pin are useds 
+# In this base configuration four gpio's pin are used
 
 GPIO_FAN_SETTINGS = [
     {
