@@ -10,7 +10,6 @@ sed "s|DIR=|DIR=$PWD|" fanSystem > /etc/init.d/fanSystem
 # change folder's rights
 chmod u+x /etc/init.d/fanSystem
 chmod u+x fanSystem.py
-chmod u+x gpoClean.py
 
 # enable and register fanSystem service
 cd /etc/init.d
