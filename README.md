@@ -19,7 +19,33 @@ If necessary, you can install the python interpreter using:
 
     # apt-get install build-essential
 
-## How to Install
+## How to Use
+FanSystem application provide three basic functions:
+- Run
+- Clean
+- Test
+
+each of them can be called up in the command line as:
+
+    # python fanSystem.py [-v, --verbose] -c <run | clean | test>
+
+### Run
+Basically function to start fan cooler engine:
+
+    # python fanSystem.py -c run
+
+### Test
+Use this command to run a fast test for the current GPIO configuration:
+
+    # python fanSystem.py -c test
+
+### Clean
+Use to clean and reset all used GPIO's pin:
+
+    # python fanSystem.py -c clean
+
+
+## How to install to run as service
 
 ### Using install file
 To install automatically all required files and services run inside your project folder (as root):
@@ -46,10 +72,9 @@ So in line 14 you must insert your project folder as:
 After then, **copy fanSystem** shell script file into **/etc/init.d** folder.
 
 #### Step 2: Permissions
-Now in your project folder you must change permissions in **fanSystem.py** and **gpoClean.py** file using:
+Now in your project folder you must change permissions in **fanSystem.py** file using:
     
     # chmod u+x fanSystem.py
-    # chmod u+x gpoClean.py
 
 The same for **fanSystem** bash file into **init.d** folder:
 
@@ -77,11 +102,9 @@ and check using:
 
     # service fanSystem status.
 
-> The gpoClean.py file is a small program used only to clear all GPIO pins when the service start or restart.
-
 > Try to restart system if service doesn't work after installation.
 
-## How to Manage Service
+### How to Manage Service
 
 To manage the service you can use: 
 
