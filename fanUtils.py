@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# fanUtils v.2
+# fanUtils
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Most common functions to manage GPIO's pins
 
