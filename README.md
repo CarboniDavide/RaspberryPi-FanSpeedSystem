@@ -8,7 +8,6 @@ Actually this project has been tested and is available for:
 - Raspberry Pi 3
 - Raspberry Pi 3 B+
 
-
 ## Required
 
 - Python Interpreter
@@ -46,28 +45,25 @@ Use to clean and reset all used GPIO's pin:
 
 
 ## How to install to run as service
+To run fanSystem.py automatically when the RaspberryPi start, you need a linux service using **fanSystem** shell script file.
+The **fanSystem** script file must be installed in your system before using **install file** or **manually**.
 
 ### Using install file
-To install automatically all required files and services run inside your project folder (as root):
+Run inside your project folder (as root) the follow command line:
 
     # bash fanInstall.sh
 
 then verify service using:
-
-    # systemctl status fanSystem
-
-or 
 
     # service fanSystem status
 
 ### Manually
 
 #### Step 1: Provide file informations and Copy
-To start fanSystem.py automatically when the raspberry start, you need to use a linux service using **fanSystem** shell script file.
-The only thing to do, you have to edit the **fanSystem** file at line 14 before using it. In the line 14 you must specify in which folder fanSystem.py and gpoClean.py files are located. 
+The first step is to edit the **fanSystem** file at line 14 to specify in which folder fanSystem.py file is located. 
 So in line 14 you must insert your project folder as:
 
-    DIR=YOUR FOLDER HERE
+    DIR=YOUR PROJECT FOLDER
 
 After then, **copy fanSystem** shell script file into **/etc/init.d** folder.
 
