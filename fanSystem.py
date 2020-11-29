@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-# fanSystem v.2
+# fanSystem
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 # Fan speed software control for Raspberry Pi
 
 import time, sys, getopt, os
 from fanUtils import *
 from fanConfig import *
-
-LOOP_SLEEP_TIME = 5
-TEST_SLEEP_TIME = 1
 
 verbose_active = False
 gpio_fan_states = { x['gpio_name'] : 0 for x in GPIO_FAN_SETTINGS }
@@ -78,7 +75,7 @@ def run():
         cpu_temp = get_cpu_temperature()
         for gpio_fan_state in GPIO_FAN_SETTINGS:
             gpio_set_state(gpio_fan_state['gpio_name'], 1 if cpu_temp > gpio_fan_state['temp_level'] else 0)
-        time.sleep(LOOP_SLEEP_TIME) 
+        time.sleep(FAN_REFRESH_TIME) 
 
 # Main Functions --------------------------------------------------------   
 
