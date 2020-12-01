@@ -6,27 +6,19 @@
 
 import os
 import RPi.GPIO as GPIO
-import fanConfig
+from fanConfig import GPIO_FAN_SETTINGS
 
 def gpio_setup():
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setwarnings(False)
-
-def gpio_clean():
-    for gpio_fan_setting in fanConfig.GPIO_FAN_SETTINGS:
-        GPIO.setup(gpio_fan_setting['gpio_name'], GPIO.OUT)
-        GPIO.cleanup(gpio_fan_setting['gpio_name'])
         
+def gpio_set(gpio_number, state):
+	GPIO.setup(gpio_number, GPIO.OUT)
+	GPIO.output(gpio_number, 1) if state else GPIO.cleanup(gpio_number)
+ 
 def gpio_reset():
     gpio_setup()
-    gpio_clean()
-
-def gpio_on(gpio_number):
-	GPIO.setup(gpio_number, GPIO.OUT)
-	GPIO.output(gpio_number, 1)
-
-def gpio_off(gpio_number):
-	GPIO.cleanup(gpio_number)
+    [gpio_set(gpio['gpio_name'], 0) for gpio in GPIO_FAN_SETTINGS]
         
 def get_cpu_temperature():
 	res = os.popen('vcgencmd measure_temp').readline()
