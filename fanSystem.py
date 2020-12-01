@@ -51,7 +51,7 @@ def protect(func):
 
 @prevent
 def gpio_set_state(gpio_number, state):
-    gpio_on(gpio_number) if state == 1 else gpio_off(gpio_number)
+    gpio_set(gpio_number, state)
     gpio_fan_states[gpio_number] = state
 
 @verbose("Starting cleanup process...", "Finished to cleanup! By")
@@ -62,10 +62,10 @@ def clean():
 @protect
 def test():
     for gpio_fan_setting in GPIO_FAN_SETTINGS:
-        gpio_on(gpio_fan_setting['gpio_name'])
+        gpio_set(gpio_fan_setting['gpio_name'], 1)
         time.sleep(TEST_SLEEP_TIME)
     for gpio_fan_setting in GPIO_FAN_SETTINGS:
-        gpio_off(gpio_fan_setting['gpio_name'])
+        gpio_set(gpio_fan_setting['gpio_name'], 0)
         time.sleep(TEST_SLEEP_TIME)
     
 @verbose("Start fan engine", "Fan engine terminated! By")
