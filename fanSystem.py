@@ -107,17 +107,16 @@ def main(argv):
     except getopt.GetoptError:
         usage()
 
-    if not opts:
-        run()
-        sys.exit()
-
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             usage()
-        if opt in ("-v", "--verbose"):
+        elif opt in ("-v", "--verbose"):
             verbose_active = True
         elif opt in ("-c", "--command"):
             eval(arg + "()") if arg in ["run", "clean", "test"] else usage()
+            sys.exit()
+            
+    usage()
                 
 if __name__ == "__main__":
     main(sys.argv[1:])
