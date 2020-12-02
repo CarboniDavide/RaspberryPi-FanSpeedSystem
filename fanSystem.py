@@ -96,13 +96,16 @@ def run():
 
 def main(argv):
     
+    def usage():
+        print('--> Use fanSystem.py [-v, --verbose] -c <run | clean | test>')
+        sys.exit(2)
+    
     global verbose_active
     
     try:
         opts, args = getopt.getopt(argv,"hvc:", ["help", "verbose", "command"])
     except getopt.GetoptError:
-        print('fanSystem.py [-v, --verbose] -c <run | clean | test>')
-        sys.exit(2)
+        usage()
 
     if not opts:
         run()
@@ -110,8 +113,7 @@ def main(argv):
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print('fanSystem.py [-v, --verbose] -c <run | clean | test>')
-            sys.exit()
+            usage()
         if opt in ("-v", "--verbose"):
             verbose_active = True
         elif opt in ("-c", "--command"):
@@ -122,7 +124,7 @@ def main(argv):
             elif arg == "test":
                 test()
             elif arg not in ["run", "clean", "test"]:
-                print('--> Use fanSystem.py [-v, --verbose] -c <run | clean | test>')
+                usage()
                 
 if __name__ == "__main__":
     main(sys.argv[1:])
