@@ -5,7 +5,7 @@
 # Fan speed software control for Raspberry Pi
 
 import time, sys, getopt, os
-from fanUtils import *
+import RPi.GPIO as GPIO
 from fanConfig import *
 
 verbose_active = False
@@ -28,7 +28,6 @@ def verbose(before="Process started...", after="Process terminated. Bye!"):
     return f_verbose
 
 def prevent(func):
-    
     def w_prevent(*args, **kwargs):
         current_state = gpio_fan_states[args[0]]
         nex_state = args[1]
@@ -47,7 +46,25 @@ def protect(func):
             gpio_reset()
     return w_prevent
 
-# Core Functions -------------------------------------------------------
+# Utils ----------------------------------------------------------------
+
+def gpio_setup():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
+        
+def gpio_set(gpio_number, state):
+	GPIO.setup(gpio_number, GPIO.OUT)
+	GPIO.output(gpio_number, 1) if state else GPIO.cleanup(gpio_number)
+ 
+def gpio_reset():
+    gpio_setup()
+    [gpio_set(gpio['gpio_name'], 0) for gpio in GPIO_FAN_SETTINGS]
+        
+def get_cpu_temperature():
+	res = os.popen('vcgencmd measure_temp').readline()
+	return float(res.replace("temp=","").replace("'C\n",""))
+
+# Core -----------------------------------------------------------------
 
 @prevent
 def gpio_set_state(gpio_number, state):
@@ -77,7 +94,7 @@ def run():
             gpio_set_state(gpio_fan_state['gpio_name'], 1 if cpu_temp > gpio_fan_state['temp_level'] else 0)
         time.sleep(FAN_REFRESH_TIME) 
 
-# Main Functions --------------------------------------------------------   
+# Main -------------------------------------------------------------------
 
 def main(argv):
     
@@ -107,7 +124,7 @@ def main(argv):
             elif arg == "test":
                 test()
             elif arg not in ["run", "clean", "test"]:
-                 print('--> Use fanSystem.py [-v, --verbose] -c <run | clean | test>')
+                print('--> Use fanSystem.py [-v, --verbose] -c <run | clean | test>')
                 
 if __name__ == "__main__":
     main(sys.argv[1:])
