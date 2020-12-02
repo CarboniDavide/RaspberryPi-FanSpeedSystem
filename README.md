@@ -45,13 +45,13 @@ Use to clean and reset all used GPIO's pin:
 
 
 ## How to install to run as service
-To run fanSystem.py automatically when the RaspberryPi start, you need a linux service using **fanSystem** shell script file.
+To run fanSystem.py automatically when the RaspberryPi start, you need a linux service using **fanSystem** shell script file locate inside the **installer folder**.
 The **fanSystem** script file must be installed in your system before. Do it using **install file** or **manually**.
 
 ### Using install file
-Run inside your project folder (as root) the follow command line:
+Go into **install** folder and run (as root) the follow command line:
 
-    # bash fanInstall.sh
+    # bash install.sh
 
 then verify service using:
 
@@ -60,7 +60,7 @@ then verify service using:
 ### Manually
 
 #### Step 1: Provide file informations and Copy
-The first step is to edit the **fanSystem** file at line 14 to specify in which folder fanSystem.py file is located. 
+Go into **install** folder first and edit the **fanSystem** file at line 14 to specify in which folder fanSystem.py file is located. 
 So in line 14 you must insert your project folder as:
 
     DIR=YOUR PROJECT FOLDER
