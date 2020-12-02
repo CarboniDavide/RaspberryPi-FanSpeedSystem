@@ -78,12 +78,10 @@ def clean():
 @verbose("Start test process...", "Test completed succesfully! By")
 @protect
 def test():
-    for gpio_fan_setting in GPIO_FAN_SETTINGS:
-        gpio_set(gpio_fan_setting['gpio_name'], 1)
-        time.sleep(TEST_SLEEP_TIME)
-    for gpio_fan_setting in GPIO_FAN_SETTINGS:
-        gpio_set(gpio_fan_setting['gpio_name'], 0)
-        time.sleep(TEST_SLEEP_TIME)
+    for state in [1, 0]:
+        for gpio in GPIO_FAN_SETTINGS:
+            gpio_set(gpio['gpio_name'], state)
+            time.sleep(TEST_SLEEP_TIME)
     
 @verbose("Start fan engine", "Fan engine terminated! By")
 @protect
