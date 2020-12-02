@@ -11,6 +11,24 @@ from fanConfig import *
 verbose_active = False
 gpio_fan_states = { x['gpio_name'] : 0 for x in GPIO_FAN_SETTINGS }
 
+# Utils ----------------------------------------------------------------
+
+def gpio_setup():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
+        
+def gpio_set(gpio_number, state):
+	GPIO.setup(gpio_number, GPIO.OUT)
+	GPIO.output(gpio_number, 1) if state else GPIO.cleanup(gpio_number)
+ 
+def gpio_reset():
+    gpio_setup()
+    [gpio_set(gpio['gpio_name'], 0) for gpio in GPIO_FAN_SETTINGS]
+        
+def get_cpu_temperature():
+	res = os.popen('vcgencmd measure_temp').readline()
+	return float(res.replace("temp=","").replace("'C\n",""))
+
 # Decorators -------------------------------------------------------------
 
 def verbose(before="Process started...", after="Process terminated. Bye!"):
@@ -45,24 +63,6 @@ def protect(func):
         except:
             gpio_reset()
     return w_prevent
-
-# Utils ----------------------------------------------------------------
-
-def gpio_setup():
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setwarnings(False)
-        
-def gpio_set(gpio_number, state):
-	GPIO.setup(gpio_number, GPIO.OUT)
-	GPIO.output(gpio_number, 1) if state else GPIO.cleanup(gpio_number)
- 
-def gpio_reset():
-    gpio_setup()
-    [gpio_set(gpio['gpio_name'], 0) for gpio in GPIO_FAN_SETTINGS]
-        
-def get_cpu_temperature():
-	res = os.popen('vcgencmd measure_temp').readline()
-	return float(res.replace("temp=","").replace("'C\n",""))
 
 # Core -----------------------------------------------------------------
 
