@@ -117,14 +117,7 @@ def main(argv):
         if opt in ("-v", "--verbose"):
             verbose_active = True
         elif opt in ("-c", "--command"):
-            if arg == "run":
-                run()
-            elif arg == "clean":
-                clean()
-            elif arg == "test":
-                test()
-            elif arg not in ["run", "clean", "test"]:
-                usage()
+            eval(arg + "()") if arg in ["run", "clean", "test"] else usage()
                 
 if __name__ == "__main__":
     main(sys.argv[1:])
