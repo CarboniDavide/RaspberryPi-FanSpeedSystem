@@ -6,7 +6,7 @@
 
 import time, sys, getopt, os
 import RPi.GPIO as GPIO
-from fanConfig import *
+from config import *
 
 verbose_active = False
 gpio_fan_states = { x['gpio_name'] : 0 for x in GPIO_FAN_SETTINGS }

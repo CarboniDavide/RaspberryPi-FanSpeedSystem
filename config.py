@@ -1,4 +1,4 @@
-# fanConfig.py
+# config.py
 # Carboni Corporation 2020 - All right reserved https://www.carboni.ch
 #
 # Main project configuration file
