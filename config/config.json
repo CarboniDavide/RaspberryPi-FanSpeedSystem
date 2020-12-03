@@ -1,0 +1,22 @@
+{
+    "GPIO_FAN_CONFIG" : [
+        {
+            "gpio_name" : 5,
+            "temp_level" : 68
+        },
+        {
+            "gpio_name" : 6,
+            "temp_level" : 70
+        },
+        {
+            "gpio_name" : 13,
+            "temp_level" : 72
+        },
+        {
+            "gpio_name" : 19,
+            "temp_level" : 75
+        }
+    ],
+    "TEST_SLEEP_TIME": 1,
+    "FAN_REFRESH_TIME": 5
+}
