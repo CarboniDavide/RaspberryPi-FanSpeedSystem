@@ -68,13 +68,13 @@ def prevent(func):
 
 
 def protect(func):
-    def w_prevent(*args, **kwargs):
+    def w_protect(*args, **kwargs):
         gpio_reset()
         try:
             func(*args, **kwargs)
         except:
             gpio_reset()
-    return w_prevent
+    return w_protect
 
 
 # Core -----------------------------------------------------------------
