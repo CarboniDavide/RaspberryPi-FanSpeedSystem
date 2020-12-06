@@ -2,7 +2,7 @@
 The Raspberry Pi variable fan speed project allows you to manage the speed of the cooling fan, quickly and easily, without use additional electronic components.
 
 ## Supported Devices
-Actually this project has been tested adn is available for: 
+Actually this project has been tested and is available for: 
 
 - Raspberry Pi 4
 - Raspberry Pi 3 
